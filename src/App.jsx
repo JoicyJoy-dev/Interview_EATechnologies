@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer as Map, TileLayer, ImageOverlay } from "react-leaflet";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import L from "leaflet";
 
 const MapWithOverlay = () => {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -57,6 +58,12 @@ const MapWithOverlay = () => {
     return canvas.toDataURL(); // Return the data URL of the canvas as an image
   };
 
+  // Custom Marker icon
+  const customIcon = new L.Icon({
+    iconUrl: pdfImage,
+    iconSize: [38, 38],
+  });
+
   return (
     <div>
       {/* Input for PDF file upload */}
@@ -74,6 +81,7 @@ const MapWithOverlay = () => {
         />
 
         {/* PDF overlay on the map */}
+
         {pdfImage && (
           <ImageOverlay
             url={pdfImage}
